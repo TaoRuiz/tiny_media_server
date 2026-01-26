@@ -6,8 +6,8 @@ services:
       - "8096:8096/tcp"
       - "7359:7359/udp"
     volumes:
-      - ./volumes/jellybin-config:/config
-      - ./volumes/jellybin-cache:/cache
+      - ./volumes/jellyfin-config:/config
+      - ./volumes/jellyfin-cache:/cache
       - ./volumes/downloads:/media
     restart: 'unless-stopped'
     environment:
@@ -23,7 +23,7 @@ services:
     volumes:
       - ./volumes/deluge-config:/config
       - ./volumes/downloads:/downloads
-      - ./volumes/downloads-src:/torrents-src
+      - ./volumes/torrent-files:/torrent-files
     ports:
       - "8112:8112"
       - "6881:6881"
@@ -37,20 +37,19 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      - AUTO_UPDATE=true #optional
-      - RUN_OPTS= #optional
+      - AUTO_UPDATE=true
     volumes:
       - ./volumes/jackett-config:/config
-      - ./volumes/downloads-src:/downloads
+      - ./volumes/torrent-files:/torrent-files
     ports:
       - "9117:9117"
     restart: unless-stopped
 
 volumes:
-  jellybin-config:
-  jellybin-cache:
+  jellyfin-config:
+  jellyfin-cache:
   deluge-config:
   jackett-config:
   # Shared
   downloads:
-  downloads-src:
+  torrent-files:
