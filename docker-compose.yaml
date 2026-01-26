@@ -1,0 +1,18 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    ports:
+      - "8096:8096/tcp"
+      - "7359:7359/udp"
+    volumes:
+      - ./jellybin-config:/config
+      - ./jellybin-cache:/cache
+      - /mnt/e/formation DEVOPS/awesome_media_server/local_media:/media
+    restart: 'unless-stopped'
+    environment:
+      - JELLYFIN_PublishedServerUrl=http://localhost
+
+volumes:
+  jellybin-config:
+  jellybin-cache:
