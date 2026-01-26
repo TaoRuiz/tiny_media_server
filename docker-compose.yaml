@@ -6,13 +6,31 @@ services:
       - "8096:8096/tcp"
       - "7359:7359/udp"
     volumes:
-      - ./jellybin-config:/config
-      - ./jellybin-cache:/cache
-      - /mnt/e/formation DEVOPS/awesome_media_server/local_media:/media
+      - ./volumes/jellybin-config:/config
+      - ./volumes/jellybin-cache:/cache
+      - ./volumes/downloads:/media
     restart: 'unless-stopped'
     environment:
       - JELLYFIN_PublishedServerUrl=http://localhost
 
+  deluge:
+    image: lscr.io/linuxserver/deluge:latest
+    container_name: deluge
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ./volumes/deluge-config:/config
+      - ./volumes/downloads:/downloads
+    ports:
+      - "8112:8112"
+      - "6881:6881"
+      - "6881:6881/udp"
+    restart: unless-stopped
+
 volumes:
   jellybin-config:
   jellybin-cache:
+  deluge-config:
+  downloads:

@@ -1,5 +1,6 @@
 ### Installation
 docker compose up -d
 
-### Interface
+### Interfaces
 Jellybin : http://localhost:8096
+Deluge : http://localhost:8112
